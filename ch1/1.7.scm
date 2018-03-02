@@ -2,14 +2,35 @@
 
 ;with limited precision floating point numbers there can only be a fixed numbers of digits of accuracy with large or small numbers. this limit will define the limit of accuracy of our procedure.
 
-(define (close-enough? prev curr)
-  (= prev curr))
+(define (close-enough? guess x)
+  (= (square guess) x)) 
+;it also probably doesn't work
 
 ;this should work better for both large and small numbers, but it might take a long time
 
-(define (close-enough2? prev curr)
-  (< (- (abs prev) (abs curr)) 0.000001))
+;the following checks the change between successive guesses
 
-;this second one might be quicker for large numbers but won't work for small ones
+
+(define (sqrt x)
+  (define (sqrt-iter guess x)
+    (define (improve guess)
+      (average guess (/ x guess)))
+
+    (define (average x y)
+      (/ (+ x y) 2))
+
+    (define (close-enough? guess improved)
+      (< (abs (- guess improved)) 0.00001))
+
+    (if (close-enough? guess (improve guess))
+	guess
+	(sqrt-iter (improve guess) x)))
+  (sqrt-iter 1.0 x))
+
+(sqrt 100)
+
+
+
+
 
 
