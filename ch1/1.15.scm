@@ -1,0 +1,17 @@
+(define (cube x) (* x x x))
+
+(define (p x) 
+  (display "called!\n")
+  (- (* 3 x) (* 4 (cube x))))
+
+(define (sine angle)
+  (if (not (> (abs angle) 0.1))
+      angle
+      (p (sine (/ angle 3.0)))))
+
+(sine 12.15)
+
+; a 5 times!
+
+; b space used is O(1), time is O(a), or less. 
+
