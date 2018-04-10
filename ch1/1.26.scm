@@ -1,0 +1,1 @@
+;since there are now two calls to expmod in the (even? exp) clause, there is a square of n as much computation being done. since both calls are identical it's wasted compuatation. this means that O(log n) becomes O(n)
